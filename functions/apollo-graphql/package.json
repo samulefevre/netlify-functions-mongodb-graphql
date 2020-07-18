@@ -17,5 +17,8 @@
   "dependencies": {
     "apollo-server-lambda": "^2.16.0",
     "graphql": "^14.7.0"
+  },
+  "devDependencies": {
+    "netlify-lambda": "^2.0.0"
   }
 }
