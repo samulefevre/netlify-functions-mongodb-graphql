@@ -6,17 +6,20 @@ const authors = [
 
 module.exports = (db) => ({
   Query: {
-    allTodos: async () => await db.collection("todos").find().toArray(),
-    hello: (root, args, context) => {
+    allTodos: async (_parent, _args, { user }) => {
+      if (!user) return [];
+      return await db.collection("todos").find().toArray();
+    },
+    hello: (_root, _args, _context) => {
       return "Hello, world!";
     },
-    allAuthors: (root, args, context) => {
+    allAuthors: (_root, _args, _context) => {
       return authors;
     },
-    author: (root, args, context) => {
+    author: (_root, _args, _context) => {
       return;
     },
-    authorByName: (root, args, context) => {
+    authorByName: (_root, args, _context) => {
       console.log("hihhihi", args.name);
       return authors.find((x) => x.name === args.name) || "NOTFOUND";
     },

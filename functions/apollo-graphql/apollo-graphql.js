@@ -8,6 +8,15 @@ exports.handler = async function (event, context) {
   const server = new ApolloServer({
     typeDefs,
     resolvers: resolvers(db),
+    context: ({ context }) => {
+      if (context.clientContext.user) {
+        return {
+          user: context.clientContext.user.sub,
+        };
+      } else {
+        return {};
+      }
+    },
     playground: true,
     introspection: true,
   });
