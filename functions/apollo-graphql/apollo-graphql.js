@@ -9,7 +9,10 @@ exports.handler = async function (event, context) {
     typeDefs,
     resolvers: resolvers(db),
     context: ({ context }) => {
+      console.log('context here', context)
       if (context.clientContext.user) {
+        console.log('context.clientContext')
+        console.log(context.clientContext)
         return {
           user: context.clientContext.user.sub,
         };
@@ -22,6 +25,13 @@ exports.handler = async function (event, context) {
   });
   return new Promise((yay, nay) => {
     const cb = (err, args) => (err ? nay(err) : yay(args));
-    server.createHandler()(event, context, cb);
+    server.createHandler({
+      cors: {
+        origin: '*',
+        credentials: true
+      } 
+    }
+
+    )(event, context, cb);
   });
 };

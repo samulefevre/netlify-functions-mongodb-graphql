@@ -7,7 +7,7 @@ const authors = [
 module.exports = (db) => ({
   Query: {
     allTodos: async (_parent, _args, { user }) => {
-      if (!user) return [];
+      // if (!user) return [];
       return await db.collection("todos").find().toArray();
     },
     hello: (_root, _args, _context) => {
