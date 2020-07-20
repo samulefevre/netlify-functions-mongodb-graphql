@@ -9,12 +9,10 @@ exports.handler = async function (event, context) {
     typeDefs,
     resolvers: resolvers(db),
     context: ({ context }) => {
-      console.log('context here', context)
-      if (context.clientContext.user) {
-        console.log('context.clientContext')
-        console.log(context.clientContext)
+      console.log('context', context)
+      if (context.clientContext.identity) {
         return {
-          user: context.clientContext.user.sub,
+          token: context.clientContext.identity.token,
         };
       } else {
         return {};
